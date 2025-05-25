@@ -26,16 +26,12 @@ public class MyFrame extends JFrame implements ActionListener {
 
     JButton buttonThree;
 
-
-
-
     TextField textField;
     TextField textfieldTwo;
 
     TextField textFieldThree;
 
     JPasswordField passwordField;
-
 
     JRadioButton spolMusko;
     JRadioButton spolZensko;
@@ -45,13 +41,9 @@ public class MyFrame extends JFrame implements ActionListener {
     JRadioButton godisnja;
     ButtonGroup clanarina;
 
-
     JCheckBox checkBoxOne, checkBoxTwo;
 
     JCheckBox checkBoxThree, checkBoxFour;
-
-
-
 
     Color lightBlue;
 
@@ -61,44 +53,26 @@ public class MyFrame extends JFrame implements ActionListener {
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(600,600);
-      //  this.getContentPane().setPreferredSize(new Dimension(500,500));;
         this.getContentPane().setBackground(Color.white);
-        //this.setResizable(false);
         this.setLocationRelativeTo(getJMenuBar());
         this.setLocationRelativeTo(null);
 
-
-        //this.setLayout(new BorderLayout());
-        //this.pack();
-
-       // this.setResizable(false);
-
         components();
 
-
         this.setVisible(true);
-
-
     }
 
     public void components(){
         imageIcon = new ImageIcon("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\logo.png");
-        //imageIconTwo = new ImageIcon("C:\\Users\\denis\\IdeaProjects\\JavaApp\\src\\com\\javapackage\\line.png");
-
 
         label = new JLabel(imageIcon);
         label.setIcon(imageIcon);
         label.setText("REGISTRACIJA");
-        //label.setLayout(null);
         label.setHorizontalTextPosition(JLabel.CENTER); //Setting the text Center of Image
         label.setVerticalTextPosition(JLabel.BOTTOM); //Setting the text Bottom of image
         label.setVerticalAlignment(JLabel.CENTER);
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setIconTextGap(-25);
-
-        //label.setLocation(250,1);
-
-
 
 
         label.setFont(new Font("Calibri",Font.PLAIN,22)); //FONT SIZE AND TYPE
@@ -140,7 +114,7 @@ public class MyFrame extends JFrame implements ActionListener {
                         textField.getText(),
                         textfieldTwo.getText(),
                         textFieldThree.getText(),
-                        spolMusko.isSelected() ? "M" : "Ž",
+                        spolMusko.isSelected() ? "M" : "Ž", // ovaj upitnik znaci or?
 
                 });
                 MyFrame.this.dispose();
@@ -182,9 +156,6 @@ public class MyFrame extends JFrame implements ActionListener {
         buttonThree.setFocusable(false);
 
         this.add(buttonThree);
-
-
-
 
         textField = new TextField();
         //textField.setPreferredSize(new Dimension(100,30));
@@ -342,24 +313,11 @@ public class MyFrame extends JFrame implements ActionListener {
         clanarina.add(godisnja);
 
 
-
-
-
-
-
-
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(200,250));
         panel.setBorder(BorderFactory.createLineBorder(Color.red,7));
         panel.setBackground(Color.white);
         panel.add(label);
-        //panel.add(textField);
-        //panel.add(textfieldTwo);
-        //panel.add(textFieldThree);
-        //panel.add(passwordField);
-
-
-
 
         this.add(panel, BorderLayout.NORTH);
 
@@ -369,11 +327,6 @@ public class MyFrame extends JFrame implements ActionListener {
         panelTwo.setPreferredSize(new Dimension(100,100));
         panelTwo.setBackground(Color.white);
         panelTwo.add(labelThree);
-       // panelTwo.add(labelTwo);
-        //panelTwo.add(spolMusko);
-        //panelTwo.add(spolZensko);
-
-
 
         this.add(panelTwo, BorderLayout.CENTER);
 
@@ -386,29 +339,13 @@ public class MyFrame extends JFrame implements ActionListener {
         panelThree.setBorder(BorderFactory.createLineBorder(Color.black,4));
         panelThree.setBackground(Color.white);
         panelThree.add(labelTwo);
-        //panelThree.add(labelThree);
-        //panelThree.add(mjesecna);
-       // panelThree.add(godisnja);
-       // panelThree.add(checkBoxOne);
-
-
-        //panelThree.add(panelTwo);
-
-
 
         this.add(panelThree, BorderLayout.SOUTH);
-
-
-
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
-
-
 
         if (e.getSource() == spolMusko){
 
@@ -438,15 +375,6 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
     }
-
-
-    private void JbuttonActionPerformed(java.awt.event.ActionEvent event){
-
-    }
-
-
-
-
 
 
 }

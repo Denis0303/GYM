@@ -13,21 +13,9 @@ public class Clanarina extends JFrame {
 
     JPanel panel;
 
-   // JPanel panelTwo;
-
-   // JPanel panelThree;
-
-   // DateFormat dateFormat = new SimpleDateFormat();
-
     JTable jTable;
 
     JScrollPane jScrollPane;
-
-
-
-    //JScrollPane jScrollPane;
-
-
 
     Clanarina(){
 
@@ -35,26 +23,17 @@ public class Clanarina extends JFrame {
         this.setSize(600,600);
         this.setLocationRelativeTo(null);
 
-
-
         setComponents();
-
 
         this.setVisible(true);
 
     }
-
-
     public void setComponents(){
-
-
 
         jTable = new JTable(0,4);
         jTable.setPreferredSize(new Dimension(600,600));
 
-
         this.add(new JScrollPane(jTable));
-
 
         label = new JLabel();
         imageIcon = new ImageIcon("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\logo.png");
@@ -65,9 +44,6 @@ public class Clanarina extends JFrame {
         label.setHorizontalTextPosition(JLabel.CENTER);
         label.setVerticalTextPosition(JLabel.BOTTOM);
 
-      //  this.add(label);
-
-
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(170,170));
         panel.setBackground(Color.white);
@@ -75,13 +51,7 @@ public class Clanarina extends JFrame {
 
         this.add(panel, BorderLayout.NORTH);
 
-
-
-
-
     }
-
-
 
     public void addRowToJtable(Object[] dataRow){
 

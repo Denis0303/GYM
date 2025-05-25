@@ -1,0 +1,65 @@
+
+q
+java:S1192À"NDefine a constant instead of duplicating this literal "Ime I Prezime" 3 times.(¥»Ä¢şÿÿÿÿ8°²«¿ğ2
+q
+java:S1192ù"NDefine a constant instead of duplicating this literal "Broj telefona" 3 times.(ÛÃçşıÿÿÿÿ8²²«¿ğ2
+j
+java:S1192Ş"GDefine a constant instead of duplicating this literal "E-mail" 3 times.(‚•üÿÿÿÿ8²²«¿ğ2
+e
+java:S1192h"HDefine a constant instead of duplicating this literal "Calibri" 3 times.(‘åÔÚ8²²«¿ğ2
+k
+java:S1192”"HDefine a constant instead of duplicating this literal "Lozinka" 3 times.(Ê¦Ì„şÿÿÿÿ8²²«¿ğ2
+F
+java:S1604…"(Make this anonymous inner class a lambda(Èú†8µ²«¿ğ2
+K
+java:S1604«"(Make this anonymous inner class a lambda(äÛÍ€úÿÿÿÿ8¶²«¿ğ2
+¤
+java:S1186»"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÑåÄÈüÿÿÿÿ8ö³«¿ğ2
+F
+java:S16591")Declare "checkBoxTwo" on a separate line.(­Ã…¤8ú³«¿ğ2
+L
+java:S16593"*Declare "checkBoxFour" on a separate line.(ëƒí­ıÿÿÿÿ8ú³«¿ğ2
+]	java:S125@"<This block of commented-out lines of code should be removed.(ü€ƒıÿÿÿÿ8„´«¿ğ2
+]	java:S125B"<This block of commented-out lines of code should be removed.(‘¨×ùÿÿÿÿ8…´«¿ğ2
+X	java:S125G"<This block of commented-out lines of code should be removed.(£üŞª8‰´«¿ğ2
+]	java:S125J"<This block of commented-out lines of code should be removed.(‘¨×ùÿÿÿÿ8‰´«¿ğ2
+o
+java:S3776T"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(û¥¿8¥´«¿ğ2
+]	java:S125V"<This block of commented-out lines of code should be removed.(µˆëêıÿÿÿÿ8®´«¿ğ2
+X	java:S125\"<This block of commented-out lines of code should be removed.(ËŸÎ8²´«¿ğ2
+^
+java:S3252]"AUse static access with "javax.swing.SwingConstants" for "CENTER".(£ˆıì8³´«¿ğ2
+^
+java:S3252^"AUse static access with "javax.swing.SwingConstants" for "BOTTOM".(¾ı×¾8¶´«¿ğ2
+^
+java:S3252_"AUse static access with "javax.swing.SwingConstants" for "CENTER".(‰µ’à8¸´«¿ğ2
+^
+java:S3252`"AUse static access with "javax.swing.SwingConstants" for "CENTER".(ÑÕ¾í8¹´«¿ğ2
+]	java:S125c"<This block of commented-out lines of code should be removed.(‹ËßÜúÿÿÿÿ8º´«¿ğ2
+]
+java:S3252o"AUse static access with "javax.swing.SwingConstants" for "CENTER".(ìë;8Ä´«¿ğ2
+c
+java:S3252p"AUse static access with "javax.swing.SwingConstants" for "CENTER".(€âÎúÿÿÿÿ8Ê´«¿ğ2
+^
+java:S3252w"AUse static access with "javax.swing.SwingConstants" for "CENTER".(üê ›8Ò´«¿ğ2
+c
+java:S3252x"AUse static access with "javax.swing.SwingConstants" for "CENTER".(ã­ô¿ûÿÿÿÿ8Ó´«¿ğ2
+X	java:S125¾"<This block of commented-out lines of code should be removed.(ğ“™D8…µ«¿ğ2
+Y	java:S125Ü"<This block of commented-out lines of code should be removed.(§´¸”8£µ«¿ğ2
+R
+java:S1874Ÿ"/Remove this use of "getText"; it is deprecated.(á²‡ğÿÿÿÿÿ8Ìµ«¿ğ2
+R
+java:S1874¬"/Remove this use of "getText"; it is deprecated.(‹Ÿ€üÿÿÿÿ8Óµ«¿ğ2
+^	java:S125ä"<This block of commented-out lines of code should be removed.(Äõ–îüÿÿÿÿ8ãµ«¿ğ2
+Y	java:S125ô"<This block of commented-out lines of code should be removed.(êê•ğ8çµ«¿ğ2
+^	java:S125…"<This block of commented-out lines of code should be removed.(á®Ëæıÿÿÿÿ8íµ«¿ğ2
+Y	java:S125‹"<This block of commented-out lines of code should be removed.(áüÅş8íµ«¿ğ2
+[	java:S106Ÿ"9Replace this use of System.out or System.err by a logger.(æÎ€µşÿÿÿÿ8óµ«¿ğ2
+[	java:S106£"9Replace this use of System.out or System.err by a logger.(ê‘‘ÿÿÿÿÿ8ôµ«¿ğ2
+V	java:S106¨"9Replace this use of System.out or System.err by a logger.(Ñ½‡Ÿ8õµ«¿ğ2
+V	java:S106ª"9Replace this use of System.out or System.err by a logger.(Ê£øÓ8öµ«¿ğ2
+p	java:S100»"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑåÄÈüÿÿÿÿ8øµ«¿ğ2
+O
+java:S1172»",Remove this unused method parameter "event".(ÑåÄÈüÿÿÿÿ8ùµ«¿ğ2
+^
+java:S1144»";Remove this unused private "JbuttonActionPerformed" method.(ÑåÄÈüÿÿÿÿ8úµ«¿ğ2

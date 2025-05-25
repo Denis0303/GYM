@@ -30,14 +30,10 @@ public class myLogin extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(560,400);
         this.getContentPane().setBackground(Color.white);
-        //this.setResizable(false);
         this.setLocationRelativeTo(null);
 
         setComponents();
-
         this.setResizable(false);
-
-
         this.setVisible(true);
 
 
@@ -114,10 +110,6 @@ public class myLogin extends JFrame implements ActionListener {
 
         this.add(passwordField);
 
-
-
-
-
         button = new JButton();
         button.setText("POTVRDI");
         button.setBounds(100,50,120,30);
@@ -146,15 +138,11 @@ public class myLogin extends JFrame implements ActionListener {
 
         this.add(buttonTwo);
 
-
-
         panel = new JPanel();
 
         panel.setPreferredSize(new Dimension(500,250));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.red, 7));
-
-
         panel.add(label);
         panel.add(textField);
         panel.add(passwordField);
@@ -163,14 +151,7 @@ public class myLogin extends JFrame implements ActionListener {
 
 
         this.add(panel, BorderLayout.CENTER);
-
-
-
-
-
     }
-
-
 
 
     @Override
