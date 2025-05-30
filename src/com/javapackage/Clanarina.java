@@ -30,7 +30,11 @@ public class Clanarina extends JFrame {
     }
     public void setComponents(){
 
-        jTable = new JTable(0,4);
+        String[] columnNames = {"Ime i prezime", "E-mail", "Broj telefona", "Spol", "Clanarina"};
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        jTable = new JTable(model);
         jTable.setPreferredSize(new Dimension(600,600));
 
         this.add(new JScrollPane(jTable));

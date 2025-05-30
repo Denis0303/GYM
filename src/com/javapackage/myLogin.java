@@ -46,7 +46,7 @@ public class myLogin extends JFrame implements ActionListener {
         label.setIcon(imageIcon);
         label.setHorizontalTextPosition(JLabel.CENTER); //Setting the text Center of Image
         label.setVerticalTextPosition(JLabel.BOTTOM);
-        label.setIconTextGap(30);
+        label.setIconTextGap(20);
 
 
         label.setFont(new Font("Calibri",Font.PLAIN,22));
