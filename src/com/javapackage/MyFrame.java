@@ -104,7 +104,9 @@ public class MyFrame extends JFrame implements ActionListener {
         button.setText("POTVRDI");
         button.setFocusable(false);
 
+
         button.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e){
                 Clanarina clanarinaFrame = new Clanarina();
@@ -114,8 +116,8 @@ public class MyFrame extends JFrame implements ActionListener {
                         textField.getText(),
                         textfieldTwo.getText(),
                         textFieldThree.getText(),
-                        spolMusko.isSelected() ? "M" : "Ž", // ovaj upitnik znaci or?
-
+                        spolMusko.isSelected() ? "M" : "Ž",
+                        clanarina.getElements().nextElement().isSelected() ? "Mjesecna" : "Godisnja"
                 });
                 MyFrame.this.dispose();
 
@@ -124,6 +126,10 @@ public class MyFrame extends JFrame implements ActionListener {
 
             }
         });
+
+
+
+
 
 
 
@@ -145,8 +151,8 @@ public class MyFrame extends JFrame implements ActionListener {
         buttonThree.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                myLogin myLogin = new myLogin();
-                myLogin.setVisible(true);
+                myRegister myRegister = new myRegister();
+                myRegister.setVisible(true);
                 MyFrame.this.dispose();
 
 
@@ -158,7 +164,6 @@ public class MyFrame extends JFrame implements ActionListener {
         this.add(buttonThree);
 
         textField = new TextField();
-        //textField.setPreferredSize(new Dimension(100,30));
         textField.setBounds(135,200,100,30);
         textField.setText("Ime I Prezime");
         textField.setForeground(Color.gray);
@@ -188,7 +193,6 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
         textfieldTwo = new TextField();
-        //textfieldTwo.setPreferredSize(new Dimension(100,30));
         textfieldTwo.setBounds(245,200,100,30);
         textfieldTwo.setText("E-mail");
         textfieldTwo.setForeground(Color.gray);
@@ -315,7 +319,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(200,250));
-        panel.setBorder(BorderFactory.createLineBorder(Color.red,7));
+        //panel.setBorder(BorderFactory.createLineBorder(Color.red,7));
         panel.setBackground(Color.white);
         panel.add(label);
 
@@ -336,13 +340,22 @@ public class MyFrame extends JFrame implements ActionListener {
         //SPOL
         panelThree = new JPanel();
         panelThree.setPreferredSize(new Dimension(100,200));
-        panelThree.setBorder(BorderFactory.createLineBorder(Color.black,4));
+        //panelThree.setBorder(BorderFactory.createLineBorder(Color.black,4));
         panelThree.setBackground(Color.white);
         panelThree.add(labelTwo);
 
         this.add(panelThree, BorderLayout.SOUTH);
 
     }
+
+
+
+
+
+
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

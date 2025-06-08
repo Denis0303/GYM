@@ -6,8 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
-public class myLogin extends JFrame implements ActionListener {
+class myRegister extends JFrame implements ActionListener {
 
     ImageIcon imageIcon;
     JLabel label;
@@ -24,7 +27,7 @@ public class myLogin extends JFrame implements ActionListener {
 
 
 
-    myLogin(){
+    myRegister(){
 
         this.setTitle("Clanarina");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -46,7 +49,7 @@ public class myLogin extends JFrame implements ActionListener {
         label.setIcon(imageIcon);
         label.setHorizontalTextPosition(JLabel.CENTER); //Setting the text Center of Image
         label.setVerticalTextPosition(JLabel.BOTTOM);
-        label.setIconTextGap(30);
+        label.setIconTextGap(20);
 
 
         label.setFont(new Font("Calibri",Font.PLAIN,22));
@@ -110,11 +113,45 @@ public class myLogin extends JFrame implements ActionListener {
 
         this.add(passwordField);
 
+
         button = new JButton();
         button.setText("POTVRDI");
         button.setBounds(100,50,120,30);
         button.addActionListener(this);
         button.setFocusable(false);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Clanarina clanarina = new Clanarina();
+                clanarina.setVisible(true);
+
+                try {
+
+                    File file = new File("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Jtable");
+                    if (!file.exists()) {
+                        file.createNewFile();
+                    }
+                    FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                    BufferedWriter bufferedWriter = new BufferedWriter(fw);
+
+                    for (int i = 0; i < clanarina.jTable.getRowCount();i++ ){
+                        for (int j = 0; j < clanarina.jTable.getColumnCount();){
+                            bufferedWriter.write(clanarina.jTable.getModel().getValueAt(i, j).toString());
+
+                        }
+
+                        bufferedWriter.close();
+                        fw.close();
+
+                    }
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+
+                }
+            }
+        });
 
 
         this.add(button);
@@ -131,7 +168,7 @@ public class myLogin extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 MyFrame myFrame = new MyFrame();
                 myFrame.setVisible(true);
-                myLogin.this.dispose();
+                myRegister.this.dispose();
 
             }
         });
