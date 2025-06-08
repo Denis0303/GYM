@@ -65,8 +65,6 @@ public class Clanarina extends JFrame {
     }
 
 
-
-
 }
 
 

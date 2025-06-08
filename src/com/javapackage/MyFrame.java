@@ -151,8 +151,8 @@ public class MyFrame extends JFrame implements ActionListener {
         buttonThree.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                myLogin myLogin = new myLogin();
-                myLogin.setVisible(true);
+                myRegister myRegister = new myRegister();
+                myRegister.setVisible(true);
                 MyFrame.this.dispose();
 
 
