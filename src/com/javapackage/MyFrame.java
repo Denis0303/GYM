@@ -2,18 +2,23 @@ package com.javapackage;
 
 import javax.swing.*;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.*;
+import java.util.Enumeration;
 
 
 public class MyFrame extends JFrame implements ActionListener {
 
+
+
     JPanel panel;
-    JPanel panelTwo;
-    JPanel panelThree;
+    JPanel panelMembership;
+    JPanel panelGender;
     JLabel label;
 
     JLabel labelTwo;
@@ -96,47 +101,11 @@ public class MyFrame extends JFrame implements ActionListener {
 
         this.add(labelThree);
 
+        createButton();
 
-        button = new JButton();
-        button.addActionListener(this);
-
-        button.setBounds(360,500,100,50);
-        button.setText("POTVRDI");
-        button.setFocusable(false);
-
-
-        button.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e){
-                Clanarina clanarinaFrame = new Clanarina();
-
-                clanarinaFrame.setVisible(true);
-                clanarinaFrame.addRowToJtable(new Object[]{
-                        textField.getText(),
-                        textfieldTwo.getText(),
-                        textFieldThree.getText(),
-                        spolMusko.isSelected() ? "M" : "Ž",
-                        clanarina.getElements().nextElement().isSelected() ? "Mjesecna" : "Godisnja"
-                });
-                MyFrame.this.dispose();
-
-
-
-
-            }
-        });
-
-
-
-
-
-
-
-        this.add(button);
 
         buttonTwo = new JButton();
-        buttonTwo.addActionListener(this);
+        //buttonTwo.addActionListener(this);
         buttonTwo.setBounds(100,500,100,50);
         buttonTwo.setText("PONIŠTI");
         buttonTwo.setFocusable(false);
@@ -148,15 +117,18 @@ public class MyFrame extends JFrame implements ActionListener {
         buttonThree = new JButton();
         buttonThree.setText("Natrag..");
         buttonThree.setForeground(lightBlue);
-        buttonThree.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                myRegister myRegister = new myRegister();
-                myRegister.setVisible(true);
-                MyFrame.this.dispose();
+        buttonThree.addActionListener( e ->  {
+            new myRegister().setVisible(true);
 
-
+            // Close the current frame
+            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(buttonThree);
+            if (currentFrame != null) {
+                currentFrame.dispose();
+            } else {
+                System.out.println("Could not find the parent frame to close.");
             }
+
+
         });
         buttonThree.setBounds(370,20,100,20);
         buttonThree.setFocusable(false);
@@ -246,75 +218,83 @@ public class MyFrame extends JFrame implements ActionListener {
         this.add(textFieldThree);
 
 
+            passwordField = new JPasswordField();
+            passwordField.setText("Lozinka");
 
-        passwordField = new JPasswordField();
-        passwordField.setText("Lozinka");
+            passwordField.setPreferredSize(new Dimension(100, 30));
+            passwordField.setForeground(Color.gray);
+            passwordField.setEchoChar((char) 0);
 
-        passwordField.setPreferredSize(new Dimension(100,30));
-        passwordField.setForeground(Color.gray);
-        passwordField.setEchoChar((char) 0);
-
-        passwordField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-
-
-                if (passwordField.getText().equals("Lozinka")){
-
-                    passwordField.setText(null);
-                    passwordField.setEchoChar('*');
-                    passwordField.setForeground(Color.black);
-
-                }
+            passwordField.addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent e) {
 
 
-            }
+                    if (passwordField.getText().equals("Lozinka")) {
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (passwordField.getText().isEmpty()){
-                    passwordField.setForeground(Color.gray);
-                    passwordField.setText("Lozinka");
-                    passwordField.setEchoChar((char)0);
+                        passwordField.setText(null);
+                        passwordField.setEchoChar('*');
+                        passwordField.setForeground(Color.black);
 
-
+                    }
 
 
                 }
 
-            }
-        });
+                @Override
+                public void focusLost(FocusEvent e) {
+                    if (passwordField.getText().isEmpty()) {
+                        passwordField.setForeground(Color.gray);
+                        passwordField.setText("Lozinka");
+                        passwordField.setEchoChar((char) 0);
+
+
+                    }
+
+                }
+            });
 
 
         this.add(passwordField);
 
 
-        spolMusko = new JRadioButton("Muško");
-        spolMusko.setBounds(160,410,120,30);
-        spolZensko = new JRadioButton("Žensko");
-        spolZensko.setBounds(310,410,120,30);
-        spolZensko.addActionListener(this);
-        spolMusko.addActionListener(this);
-        this.add(spolMusko);
-        this.add(spolZensko);
-
-        muskoZensko = new ButtonGroup();
-        muskoZensko.add(spolMusko);
-        muskoZensko.add(spolZensko);
 
 
-        mjesecna = new JRadioButton("Mjesečna 40€");
-        mjesecna.setBounds(160,300,120,30);
-        godisnja = new JRadioButton("Godišnja 480€");
-        godisnja.setBounds(310,300,120,30);
-        mjesecna.addActionListener(this);
-        godisnja.addActionListener(this);
-        this.add(mjesecna);
-        this.add(godisnja);
 
-        clanarina = new ButtonGroup();
-        clanarina.add(mjesecna);
-        clanarina.add(godisnja);
+            spolMusko = new JRadioButton("Muško");
+            spolMusko.setBounds(160, 410, 120, 30);
+            spolZensko = new JRadioButton("Žensko");
+            spolZensko.setBounds(310, 410, 120, 30);
+            spolZensko.addActionListener(this);
+            spolMusko.addActionListener(this);
+            this.add(spolMusko);
+            this.add(spolZensko);
+
+            muskoZensko = new ButtonGroup();
+            muskoZensko.add(spolMusko);
+            muskoZensko.add(spolZensko);
+
+
+            mjesecna = new JRadioButton("Mjesečna 40€");
+            mjesecna.setBounds(160, 300, 120, 30);
+            godisnja = new JRadioButton("Godišnja 480€");
+            godisnja.setBounds(310, 300, 120, 30);
+            mjesecna.addActionListener(this);
+            godisnja.addActionListener(this);
+            this.add(mjesecna);
+            this.add(godisnja);
+
+            clanarina = new ButtonGroup();
+            clanarina.add(mjesecna);
+            clanarina.add(godisnja);
+
+
+
+
+
+
+
+
 
 
         panel = new JPanel();
@@ -325,37 +305,132 @@ public class MyFrame extends JFrame implements ActionListener {
 
         this.add(panel, BorderLayout.NORTH);
 
+        
+        createMembershipPanel();
+        createGenderPanel();
+    }
 
-        //CLANARINA
-        panelTwo = new JPanel();
-        panelTwo.setPreferredSize(new Dimension(100,100));
-        panelTwo.setBackground(Color.white);
-        panelTwo.add(labelThree);
+    private void createButton() {
+        button = new JButton();
+        //button.addActionListener(this);
 
-        this.add(panelTwo, BorderLayout.CENTER);
+        button.setBounds(360,500,100,50);
+        button.setText("POTVRDI");
+        button.setFocusable(false);
+        button.addActionListener(e -> {
+
+
+            String membershipType = "";
+            Enumeration<AbstractButton> buttons = clanarina.getElements();
+            while (buttons.hasMoreElements()){
+                AbstractButton btn = buttons.nextElement();
+                if (btn.isSelected()){
+                    membershipType = btn.getText();
+                    break;
+
+                }
+            }
+
+            String[] rowData = {
+                    textField.getText(),
+                    textfieldTwo.getText(),
+                    textFieldThree.getText(),
+                    spolMusko.isSelected() ? "M" : "Ž",
+                    membershipType
+            };
+
+
+            // add row generated on login
+            Clanarina clanarinaFrame = new Clanarina();
+           // clanarinaFrame.addRowToJtable(rowData);
+
+            // add other rows, generated on prevoius logins
+           // String[] olderRow = rows.get;
+           // clanarinaFrame.addRowToJtable(olderRow);
+
+            //Creating a file
+
+            try {
+                File file = new File("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv");
+                if (!file.exists()){
+                    file.createNewFile();
+
+                }
+
+
+                FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(), true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                for (int i = 0; i < clanarinaFrame.jTable.getRowCount(); i++){
+                    for (int j = 0; j< clanarinaFrame.jTable.getColumnCount(); j++){
+                        bufferedWriter.write(clanarinaFrame.jTable.getModel().getValueAt(i , j) + " ");
+                    }
+
+                    bufferedWriter.write("\n____________________\n");
+                }
+
+
+                bufferedWriter.close();
+                fileWriter.close();
+
+                // JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(button);
+                // parentFrame.dispose();
 
 
 
+                JOptionPane.showMessageDialog(null,"Data exported");
 
-        //SPOL
-        panelThree = new JPanel();
-        panelThree.setPreferredSize(new Dimension(100,200));
-        //panelThree.setBorder(BorderFactory.createLineBorder(Color.black,4));
-        panelThree.setBackground(Color.white);
-        panelThree.add(labelTwo);
+                this.dispose();
 
-        this.add(panelThree, BorderLayout.SOUTH);
 
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        });
+
+        this.add(button);
+
+    }
+
+    public void loadCsvDataFromFile(String filePath) {
+        Clanarina clanarina1 = new Clanarina();
+        DefaultTableModel model = (DefaultTableModel) clanarina1.jTable.getModel();
+        model.setRowCount(0); // clear existing rows
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Split line on comma, trim spaces
+                String[] data = line.split("\\s*,\\s*");
+                model.addRow(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading CSV: " + e.getMessage());
+        }
     }
 
 
 
 
+    private void createMembershipPanel() {
+        panelMembership = new JPanel();
+        panelMembership.setPreferredSize(new Dimension(100,100));
+        panelMembership.setBackground(Color.white);
+        panelMembership.add(labelThree);
 
+        this.add(panelMembership, BorderLayout.CENTER);
+    }
 
+    private void createGenderPanel() {
+        panelGender = new JPanel();
+        panelGender.setPreferredSize(new Dimension(100,200));
+        //panelGender.setBorder(BorderFactory.createLineBorder(Color.black,4));
+        panelGender.setBackground(Color.white);
+        panelGender.add(labelTwo);
 
-
-
+        this.add(panelGender, BorderLayout.SOUTH);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

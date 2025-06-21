@@ -6,11 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 
-class myRegister extends JFrame implements ActionListener {
+public class myRegister extends JFrame implements ActionListener {
 
     ImageIcon imageIcon;
     JLabel label;
@@ -122,35 +119,34 @@ class myRegister extends JFrame implements ActionListener {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String password = "Denis";
+                String Email = "denisradocaj03@gmail.com";
 
-                Clanarina clanarina = new Clanarina();
-                clanarina.setVisible(true);
+                String enteredPassword = new String(passwordField.getPassword());
+                String enteredEmail = textField.getText();
 
-                try {
+                if (enteredPassword.equals(password) && enteredEmail.equals(Email)){
 
-                    File file = new File("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Jtable");
-                    if (!file.exists()) {
-                        file.createNewFile();
-                    }
-                    FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                    BufferedWriter bufferedWriter = new BufferedWriter(fw);
+                    System.out.println("Access granted!");
 
-                    for (int i = 0; i < clanarina.jTable.getRowCount();i++ ){
-                        for (int j = 0; j < clanarina.jTable.getColumnCount();){
-                            bufferedWriter.write(clanarina.jTable.getModel().getValueAt(i, j).toString());
+                    Clanarina clanarinaFrame = new Clanarina();
+                    // Load CSV data here, replace with your actual file path
+                    String csvPath = "C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv";
+                    clanarinaFrame.loadCsvDataFromFile(csvPath);
 
-                        }
 
-                        bufferedWriter.close();
-                        fw.close();
+                    clanarinaFrame.setVisible(true);
 
-                    }
+                    JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(button);
+                    loginFrame.dispose();
 
-                }catch (Exception ex){
-                    ex.printStackTrace();
 
+                }else{
+                    System.out.println("Access denied");
+                    JOptionPane.showMessageDialog(null, "Wrong E-mail or Password!");
                 }
-            }
+
+;            }
         });
 
 
@@ -166,10 +162,15 @@ class myRegister extends JFrame implements ActionListener {
         buttonTwo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Open the new frame
                 MyFrame myFrame = new MyFrame();
                 myFrame.setVisible(true);
-                myRegister.this.dispose();
 
+                // Close the current frame
+                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(buttonTwo);
+                if (currentFrame != null) {
+                    currentFrame.dispose();
+                }
             }
         });
 
@@ -199,7 +200,14 @@ class myRegister extends JFrame implements ActionListener {
 
         }
 
+
+
     }
+
+
+
+
+
 
 
 
