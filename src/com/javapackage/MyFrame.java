@@ -109,6 +109,15 @@ public class MyFrame extends JFrame implements ActionListener {
         buttonTwo.setBounds(100,500,100,50);
         buttonTwo.setText("PONIŠTI");
         buttonTwo.setFocusable(false);
+        buttonTwo.addActionListener(e -> {
+            textField.setText("");
+            textfieldTwo.setText("");
+            textFieldThree.setText("");
+            muskoZensko.clearSelection();
+            clanarina.clearSelection();
+
+
+        });
 
         this.add(buttonTwo);
 
@@ -331,6 +340,26 @@ public class MyFrame extends JFrame implements ActionListener {
                 }
             }
 
+            if (textField.getText().trim().isEmpty() ||
+                    textfieldTwo.getText().trim().isEmpty() ||
+                    textFieldThree.getText().trim().isEmpty() ||
+                    (!spolMusko.isSelected() && !spolZensko.isSelected()) ||
+                    membershipType.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Please fill in all fields and make all selections!",
+                        "Input Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return; // stop here if invalid
+            }
+
+
+
+
+
+
             String[] rowData = {
                     textField.getText(),
                     textfieldTwo.getText(),
@@ -339,16 +368,6 @@ public class MyFrame extends JFrame implements ActionListener {
                     membershipType
             };
 
-
-            // add row generated on login
-            Clanarina clanarinaFrame = new Clanarina();
-           // clanarinaFrame.addRowToJtable(rowData);
-
-            // add other rows, generated on prevoius logins
-           // String[] olderRow = rows.get;
-           // clanarinaFrame.addRowToJtable(olderRow);
-
-            //Creating a file
 
             try {
                 File file = new File("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv");
@@ -361,13 +380,16 @@ public class MyFrame extends JFrame implements ActionListener {
                 FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(), true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-                for (int i = 0; i < clanarinaFrame.jTable.getRowCount(); i++){
-                    for (int j = 0; j< clanarinaFrame.jTable.getColumnCount(); j++){
-                        bufferedWriter.write(clanarinaFrame.jTable.getModel().getValueAt(i , j) + " ");
+                for (int i = 0; i < rowData.length; i++){
+                    bufferedWriter.write(rowData[i]);
+                    if (i < rowData.length - 1){
+                        bufferedWriter.write(",");
                     }
 
-                    bufferedWriter.write("\n____________________\n");
+
                 }
+
+                bufferedWriter.newLine();
 
 
                 bufferedWriter.close();
@@ -380,7 +402,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
                 JOptionPane.showMessageDialog(null,"Data exported");
 
-                this.dispose();
+                //this.dispose();
 
 
             }catch (Exception ex){
@@ -392,7 +414,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
     }
 
-    public void loadCsvDataFromFile(String filePath) {
+   /* public void loadCsvDataFromFile(String filePath) {
         Clanarina clanarina1 = new Clanarina();
         DefaultTableModel model = (DefaultTableModel) clanarina1.jTable.getModel();
         model.setRowCount(0); // clear existing rows
@@ -409,7 +431,7 @@ public class MyFrame extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Error loading CSV: " + e.getMessage());
         }
     }
-
+*/
 
 
 
