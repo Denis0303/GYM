@@ -10,8 +10,6 @@ public class GenerateTestData {
     private static final String CSV_FILE_PATH =
             "C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv";
 
-
-
     public static void main(String[] args){
 
         int rowCount = 10_000;
@@ -20,7 +18,7 @@ public class GenerateTestData {
             Random random = new Random();
             String[] genders = {"M", "F"};
 
-            // ✅ Write the header row
+            //Write the header row
             String header = String.join(", ",
                     "Ime i prezime", "E-mail", "Broj telefona", "Spol", "Clanarina", "Datum", "Rok isteka");
             bw.write(header);

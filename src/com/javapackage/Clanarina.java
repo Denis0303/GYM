@@ -1,17 +1,11 @@
 package com.javapackage;
 
 
-import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,14 +17,14 @@ public class Clanarina extends JFrame {
     private static final String CSV_FILE_PATH =
             "C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv";
 
-    JLabel label;
+    JLabel labelMembership;
     ImageIcon imageIcon;
 
     JPanel panel;
 
     //Color lightBlue;
 
-    JButton jButton;
+    JButton backButton;
 
     private JTable jTable;
    private DefaultTableModel model;
@@ -64,23 +58,12 @@ public class Clanarina extends JFrame {
         this.setLayout(new BorderLayout());
 
         DatabaseHelper.createTables();
-
-
-
         initializeTable();
-
-
         setComponents();
         addSearchPanel();
         setBottomButtons();
-
-
         loadDataFromDatabase();
         insertDummyDataIfEmpty();
-
-
-
-
 
         this.setVisible(true);
 
@@ -117,97 +100,25 @@ public class Clanarina extends JFrame {
         }
     }
 
-
-
-
     public void setComponents(){
 
-        label = new JLabel();
+        labelMembership = new JLabel();
         imageIcon = new ImageIcon("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\logo.png");
-        label.setText("CLANARINE");
-        label.setFont(new Font("Calibri",Font.PLAIN,22));
-        label.setIcon(imageIcon);
-        label.setIconTextGap(25);
-        label.setHorizontalTextPosition(JLabel.CENTER);
-        label.setVerticalTextPosition(JLabel.BOTTOM);
+        labelMembership.setText("CLANARINE");
+        labelMembership.setFont(new Font("Calibri",Font.PLAIN,22));
+        labelMembership.setIcon(imageIcon);
+        labelMembership.setIconTextGap(25);
+        labelMembership.setHorizontalTextPosition(JLabel.CENTER);
+        labelMembership.setVerticalTextPosition(JLabel.BOTTOM);
 
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(170,170));
         panel.setBackground(Color.white);
-        panel.add(label);
+        panel.add(labelMembership);
 
         this.add(panel, BorderLayout.NORTH);
 
-        //lightBlue = new Color(0,0,182,155);
-
-
-
-
-
-
     }
-
-
-    private void setJtableButton(){
-
-        jButton = new JButton();
-        jButton.setText("Natrag...");
-        //jButton.setForeground(lightBlue);
-        jButton.setBounds(370,20,100,20);
-        jButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MyFrame myFrame = new MyFrame();
-                myFrame.setVisible(true);
-
-                Clanarina.this.dispose();
-
-            }
-        });
-
-        jButton.setFocusable(false);
-
-
-        this.add(jButton);
-    }
-
-    public void addRowToJtable(Object[] dataRow){
-
-        DefaultTableModel model = (DefaultTableModel)jTable.getModel();
-        model.addRow(dataRow);
-
-    }
-
-
-   /* public void loadCsvDataFromFile(String filePath) {
-        //model.setRowCount(0); // clear existing rows
-        allData.clear();
-        currentData.clear();
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            JOptionPane.showMessageDialog(this, "CSV file does not exist: " + filePath);
-            return;
-
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                // Split line on comma, trim spaces
-                String[] data = line.split("\\s*,\\s*");
-                allData.add(data);
-                //model.addRow(data);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading CSV: " + e.getMessage());
-        }
-
-        currentData = new ArrayList<>(allData);
-        showPage(1);
-    }
-*/
 
     private void showPage(int page){
         model.setRowCount(0);
@@ -256,18 +167,12 @@ public class Clanarina extends JFrame {
             return c;
         }
     }
-
-
-
-
-
     private void setBottomButtons() {
         JPanel buttonPanel = new JPanel(); // defaults to FlowLayout
 
-
-        jButton = new JButton("Natrag...");
-        jButton.setFocusable(false);
-        jButton.addActionListener(e -> {
+        backButton = new JButton("Natrag...");
+        backButton.setFocusable(false);
+        backButton.addActionListener(e -> {
             MyFrame myFrame = new MyFrame();
             myFrame.setVisible(true);
             Clanarina.this.dispose();
@@ -325,7 +230,7 @@ public class Clanarina extends JFrame {
             }
         });
 
-        buttonPanel.add(jButton);
+        buttonPanel.add(backButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(prevButton);
         buttonPanel.add(nextButton);
@@ -349,61 +254,9 @@ public class Clanarina extends JFrame {
         this.add(scrollPane, BorderLayout.CENTER);
         }
 
-
-   /* private void saveTableToCsv(String filePath) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            for (int i = 0; i < model.getRowCount(); i++) {
-                for (int j = 0; j < model.getColumnCount(); j++) {
-                    Object cellValue = model.getValueAt(i, j);
-                    bw.write(cellValue != null ? cellValue.toString() : "");
-                    if (j < model.getColumnCount() - 1) {
-                        bw.write(",");
-                    }
-                }
-                bw.newLine();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Greška pri spremanju CSV: " + ex.getMessage());
-        }*/
-
-
-
-
-
-
-
-
-
-
-    private void loadDummyData(int count) {
-        Random random = new Random();
-        String[] genders = {"M", "F"};
-
-        for (int i = 1; i <= count; i++) {
-            String name = "User" + i + " Last" + i;
-            String email = "user" + i + "@example.com";
-            String phone = String.format("+385 91 %03d %04d", random.nextInt(1000), random.nextInt(10000));
-            String gender = genders[random.nextInt(genders.length)];
-            String membership = random.nextBoolean() ? "Standard" : "Premium";
-            String startDate = String.format("%02d.%02d.2024", random.nextInt(28) + 1, random.nextInt(12) + 1);
-            String expirationDate = String.format("%02d.%02d.2025", random.nextInt(28) + 1, random.nextInt(12) + 1);
-
-            Object[] row = {name, email, phone, gender, membership, startDate, expirationDate};
-            model.addRow(row);
-        }
-
-}
-
-
     private void addSearchPanel() {
 
-
-        searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); // initialize it!
-
-
-
-
+        searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         searchField = new JTextField(20);
         searchButton = new JButton("Search");
         resetButton = new JButton("Reset");
@@ -412,8 +265,6 @@ public class Clanarina extends JFrame {
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         searchPanel.add(resetButton);
-
-
 
         // Add action listener for Search button
         searchButton.addActionListener(e -> {
@@ -434,7 +285,6 @@ public class Clanarina extends JFrame {
 
             showPage(1);
 
-
         });
 
         // Add action listener for Reset button
@@ -447,25 +297,6 @@ public class Clanarina extends JFrame {
 
         this.add(searchPanel, BorderLayout.NORTH);
     }
-
-  /*  private void insertCsvDataToDatabase() {
-        try (Connection conn = DatabaseHelper.connect();
-             PreparedStatement pstmt = conn.prepareStatement(
-                     "INSERT OR IGNORE INTO People (\"Ime i prezime\",\"E-mail\",\"Broj telefona\",\"Spol\",\"Clanarina\",\"Datum\",\"Rok isteka\") VALUES (?,?,?,?,?,?,?)")) {
-
-            for (String[] row : allData) {
-                for (int i = 0; i < row.length; i++) {
-                    pstmt.setString(i + 1, row[i]);
-                }
-                pstmt.addBatch();
-            }
-            pstmt.executeBatch();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-}*/
 
     private static void insertPerson(String imePrezime, String email, String phone,
                               String spol, String clanarina,

@@ -2,63 +2,39 @@ package com.javapackage;
 
 import javax.swing.*;
 import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Enumeration;
 
 
 public class MyFrame extends JFrame implements ActionListener {
-
-
-
     JPanel panel;
     JPanel panelMembership;
     JPanel panelGender;
-    JLabel label;
-
-    JLabel labelTwo;
-
-    JLabel labelThree;
+    JLabel registrationLabel;
+    JLabel labelGender;
+    JLabel labelMembership;
     ImageIcon imageIcon;
-    ImageIcon imageIconTwo;
-    JButton button;
-    JButton buttonTwo;
-
-    JButton buttonThree;
-
-    TextField textField;
-    TextField textfieldTwo;
-
-    TextField textFieldThree;
-
+    JButton confirmButton;
+    JButton deleteButton;
+    JButton goBackButton;
+    TextField nameSurnameText;
+    TextField emailTextField;
+    TextField phoneNumberText;
     JPasswordField passwordField;
-
     JRadioButton spolMusko;
     JRadioButton spolZensko;
     ButtonGroup muskoZensko;
-
     JRadioButton mjesecna;
     JRadioButton godisnja;
     ButtonGroup clanarina;
 
-    JCheckBox checkBoxOne, checkBoxTwo;
-
-    JCheckBox checkBoxThree, checkBoxFour;
-
-    Color lightBlue;
-
-
-
-
     MyFrame(){
-        
+
         this.setTitle("Clanarina");
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -76,67 +52,64 @@ public class MyFrame extends JFrame implements ActionListener {
     public void components(){
         imageIcon = new ImageIcon("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\logo.png");
 
-        label = new JLabel(imageIcon);
-        label.setIcon(imageIcon);
-        label.setText("REGISTRACIJA");
-        label.setHorizontalTextPosition(JLabel.CENTER); //Setting the text Center of Image
-        label.setVerticalTextPosition(JLabel.BOTTOM); //Setting the text Bottom of image
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setIconTextGap(-25);
+        registrationLabel = new JLabel(imageIcon);
+        registrationLabel.setIcon(imageIcon);
+        registrationLabel.setText("REGISTRACIJA");
+        registrationLabel.setHorizontalTextPosition(JLabel.CENTER); //Setting the text Center of Image
+        registrationLabel.setVerticalTextPosition(JLabel.BOTTOM); //Setting the text Bottom of image
+        registrationLabel.setVerticalAlignment(JLabel.CENTER);
+        registrationLabel.setHorizontalAlignment(JLabel.CENTER);
+        registrationLabel.setIconTextGap(-25);
 
 
-        label.setFont(new Font("Calibri",Font.PLAIN,22)); //FONT SIZE AND TYPE
+        registrationLabel.setFont(new Font("Calibri",Font.PLAIN,22)); //FONT SIZE AND TYPE
 
-        this.add(label);
+        this.add(registrationLabel);
 
 
-        labelTwo = new JLabel();
-        labelTwo.setText("SPOL");
-        labelTwo.setVerticalAlignment(JLabel.CENTER);
-        labelTwo.setHorizontalAlignment(JLabel.CENTER);
-        labelTwo.setFont(new Font("Calibri",Font.PLAIN,22));
+        labelGender = new JLabel();
+        labelGender.setText("SPOL");
+        labelGender.setVerticalAlignment(JLabel.CENTER);
+        labelGender.setHorizontalAlignment(JLabel.CENTER);
+        labelGender.setFont(new Font("Calibri",Font.PLAIN,22));
 
-        this.add(labelTwo);
+        this.add(labelGender);
 
-        labelThree = new JLabel();
-        labelThree.setText("ČLANARINA");
-        labelThree.setVerticalAlignment(JLabel.CENTER);
-        labelThree.setHorizontalAlignment(JLabel.CENTER);
-        labelThree.setFont(new Font("Calibri",Font.PLAIN,22));
+        labelMembership = new JLabel();
+        labelMembership.setText("ČLANARINA");
+        labelMembership.setVerticalAlignment(JLabel.CENTER);
+        labelMembership.setHorizontalAlignment(JLabel.CENTER);
+        labelMembership.setFont(new Font("Calibri",Font.PLAIN,22));
 
-        this.add(labelThree);
+        this.add(labelMembership);
 
         createButton();
 
 
-        buttonTwo = new JButton();
-        //buttonTwo.addActionListener(this);
-        buttonTwo.setBounds(100,500,100,50);
-        buttonTwo.setText("PONIŠTI");
-        buttonTwo.setFocusable(false);
-        buttonTwo.addActionListener(e -> {
-            textField.setText("");
-            textfieldTwo.setText("");
-            textFieldThree.setText("");
+        deleteButton = new JButton();
+        deleteButton.setBounds(100,500,100,50);
+        deleteButton.setText("PONIŠTI");
+        deleteButton.setFocusable(false);
+        deleteButton.addActionListener(e -> {
+            nameSurnameText.setText("");
+            emailTextField.setText("");
+            phoneNumberText.setText("");
             muskoZensko.clearSelection();
             clanarina.clearSelection();
 
 
         });
 
-        this.add(buttonTwo);
+        this.add(deleteButton);
 
-        //lightBlue = new Color(0,0,182,155);
 
-        buttonThree = new JButton();
-        buttonThree.setText("Natrag..");
-        buttonThree.setForeground(lightBlue);
-        buttonThree.addActionListener( e ->  {
+        goBackButton = new JButton();
+        goBackButton.setText("Natrag..");
+        goBackButton.addActionListener(e ->  {
             new myRegister().setVisible(true);
 
             // Close the current frame
-            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(buttonThree);
+            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(goBackButton);
             if (currentFrame != null) {
                 currentFrame.dispose();
             } else {
@@ -145,92 +118,90 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
         });
-        buttonThree.setBounds(370,20,100,20);
-        buttonThree.setFocusable(false);
+        goBackButton.setBounds(370,20,100,20);
+        goBackButton.setFocusable(false);
 
-        this.add(buttonThree);
+        this.add(goBackButton);
 
-        textField = new TextField();
-        textField.setBounds(135,200,100,30);
-        textField.setText("Ime I Prezime");
-        textField.setForeground(Color.gray);
-        textField.addFocusListener(new FocusListener() {
+        nameSurnameText = new TextField();
+        nameSurnameText.setBounds(135,200,100,30);
+        nameSurnameText.setText("Ime I Prezime");
+        nameSurnameText.setForeground(Color.gray);
+        nameSurnameText.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textField.getText().equals("Ime I Prezime")){
-                    textField.setText("");
-                    textField.setForeground(Color.black);
+                if (nameSurnameText.getText().equals("Ime I Prezime")){
+                    nameSurnameText.setText("");
+                    nameSurnameText.setForeground(Color.black);
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (textField.getText().isEmpty()){
-                    textField.setForeground(Color.gray);
-                    textField.setText("Ime I Prezime");
+                if (nameSurnameText.getText().isEmpty()){
+                    nameSurnameText.setForeground(Color.gray);
+                    nameSurnameText.setText("Ime I Prezime");
                 }
 
             }
         });
 
-
-
-        this.add(textField);
+        this.add(nameSurnameText);
 
 
 
-        textfieldTwo = new TextField();
-        textfieldTwo.setBounds(245,200,100,30);
-        textfieldTwo.setText("E-mail");
-        textfieldTwo.setForeground(Color.gray);
-        textfieldTwo.addFocusListener(new FocusListener() {
+        emailTextField = new TextField();
+        emailTextField.setBounds(245,200,100,30);
+        emailTextField.setText("E-mail");
+        emailTextField.setForeground(Color.gray);
+        emailTextField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textfieldTwo.getText().equals("E-mail")){
-                    textfieldTwo.setText("");
-                    textfieldTwo.setForeground(Color.BLACK);
+                if (emailTextField.getText().equals("E-mail")){
+                    emailTextField.setText("");
+                    emailTextField.setForeground(Color.BLACK);
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
 
-                if (textfieldTwo.getText().isEmpty()){
-                    textfieldTwo.setForeground(Color.gray);
-                    textfieldTwo.setText("E-mail");
+                if (emailTextField.getText().isEmpty()){
+                    emailTextField.setForeground(Color.gray);
+                    emailTextField.setText("E-mail");
                 }
 
             }
         });
 
-        this.add(textfieldTwo);
+        this.add(emailTextField);
 
 
-        textFieldThree = new TextField();
-        textFieldThree.setBounds(355,200,100,30);
-        textFieldThree.setText("Broj telefona");
-        textFieldThree.setForeground(Color.gray);
-        textFieldThree.addFocusListener(new FocusListener() {
+        phoneNumberText = new TextField();
+        phoneNumberText.setBounds(355,200,100,30);
+        phoneNumberText.setText("Broj telefona");
+        phoneNumberText.setForeground(Color.gray);
+        phoneNumberText.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textFieldThree.getText().equals("Broj telefona")){
-                    textFieldThree.setText("");
-                    textFieldThree.setForeground(Color.black);
+                if (phoneNumberText.getText().equals("Broj telefona")){
+                    phoneNumberText.setText("");
+                    phoneNumberText.setForeground(Color.black);
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e){
-                if (textFieldThree.getText().isEmpty()){
-                    textFieldThree.setForeground(Color.gray);
-                    textFieldThree.setText("Broj telefona");
+                if (phoneNumberText.getText().isEmpty()){
+                    phoneNumberText.setForeground(Color.gray);
+                    phoneNumberText.setText("Broj telefona");
                 }
 
             }
         });
 
 
-        this.add(textFieldThree);
+        this.add(phoneNumberText);
 
 
             passwordField = new JPasswordField();
@@ -304,39 +275,29 @@ public class MyFrame extends JFrame implements ActionListener {
             clanarina.add(godisnja);
 
 
-
-
-
-
-
-
-
-
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(200,250));
-        //panel.setBorder(BorderFactory.createLineBorder(Color.red,7));
         panel.setBackground(Color.white);
-        panel.add(label);
+        panel.add(registrationLabel);
 
         this.add(panel, BorderLayout.NORTH);
 
-        
+
         createMembershipPanel();
         createGenderPanel();
     }
 
     private void createButton() {
-        button = new JButton();
-        button.setBounds(360, 500, 100, 50);
-        button.setText("POTVRDI");
-        button.setFocusable(false);
+        confirmButton = new JButton();
+        confirmButton.setBounds(360, 500, 100, 50);
+        confirmButton.setText("POTVRDI");
+        confirmButton.setFocusable(false);
 
-        button.addActionListener(e -> {
+        confirmButton.addActionListener(e -> {
 
-            String name = textField.getText().trim();
-            String email = textfieldTwo.getText().trim();
-            String phone = textFieldThree.getText().trim();
-            String password = new String(passwordField.getPassword());
+            String name = nameSurnameText.getText().trim();
+            String email = emailTextField.getText().trim();
+            String phone = phoneNumberText.getText().trim();
             String gender = getSelectedGender();
             String membership = getSelectedMembership();
 
@@ -399,14 +360,14 @@ public class MyFrame extends JFrame implements ActionListener {
                 );
 
                 // Clear fields after success
-                textField.setText("Ime I Prezime");
-                textField.setForeground(Color.gray);
+                nameSurnameText.setText("Ime I Prezime");
+                nameSurnameText.setForeground(Color.gray);
 
-                textfieldTwo.setText("E-mail");
-                textfieldTwo.setForeground(Color.gray);
+                emailTextField.setText("E-mail");
+                emailTextField.setForeground(Color.gray);
 
-                textFieldThree.setText("Broj telefona");
-                textFieldThree.setForeground(Color.gray);
+                phoneNumberText.setText("Broj telefona");
+                phoneNumberText.setForeground(Color.gray);
 
                 passwordField.setText("Lozinka");
                 passwordField.setForeground(Color.gray);
@@ -421,10 +382,8 @@ public class MyFrame extends JFrame implements ActionListener {
 
         });
 
-        this.add(button);
+        this.add(confirmButton);
     }
-
-
 
     private String getSelectedGender() {
         if (spolMusko.isSelected()) return "Muško";
@@ -438,34 +397,11 @@ public class MyFrame extends JFrame implements ActionListener {
         return ""; // return empty if nothing selected
     }
 
-
-
-   /* public void loadCsvDataFromFile(String filePath) {
-        Clanarina clanarina1 = new Clanarina();
-        DefaultTableModel model = (DefaultTableModel) clanarina1.jTable.getModel();
-        model.setRowCount(0); // clear existing rows
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                // Split line on comma, trim spaces
-                String[] data = line.split("\\s*,\\s*");
-                model.addRow(data);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading CSV: " + e.getMessage());
-        }
-    }
-*/
-
-
-
     private void createMembershipPanel() {
         panelMembership = new JPanel();
         panelMembership.setPreferredSize(new Dimension(100,100));
         panelMembership.setBackground(Color.white);
-        panelMembership.add(labelThree);
+        panelMembership.add(labelMembership);
 
         this.add(panelMembership, BorderLayout.CENTER);
     }
@@ -475,7 +411,7 @@ public class MyFrame extends JFrame implements ActionListener {
         panelGender.setPreferredSize(new Dimension(100,200));
         //panelGender.setBorder(BorderFactory.createLineBorder(Color.black,4));
         panelGender.setBackground(Color.white);
-        panelGender.add(labelTwo);
+        panelGender.add(labelGender);
 
         this.add(panelGender, BorderLayout.SOUTH);
     }
@@ -502,18 +438,13 @@ public class MyFrame extends JFrame implements ActionListener {
             System.out.println("Izabrali ste godisnju clanarinu");
         }
 
-        if (e.getSource() == buttonTwo){
-            textField.setText("");
-            textfieldTwo.setText("");
+        if (e.getSource() == deleteButton){
+            nameSurnameText.setText("");
+            emailTextField.setText("");
             passwordField.setText("");
             clanarina.clearSelection();
             muskoZensko.clearSelection();
 
         }
-
-
-
     }
-
-
 }

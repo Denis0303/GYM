@@ -10,19 +10,12 @@ import java.awt.event.FocusListener;
 public class myRegister extends JFrame implements ActionListener {
 
     ImageIcon imageIcon;
-    JLabel label;
+    JLabel labelLogin;
     JPanel panel;
-    TextField textField;
-
+    TextField EmailTextField;
     JPasswordField passwordField;
-
-    JButton button;
-
-    Color lightBlue;
-
-    JButton buttonTwo;
-
-
+    JButton confirmButton;
+    JButton registerButton;
 
     myRegister(){
 
@@ -42,43 +35,43 @@ public class myRegister extends JFrame implements ActionListener {
     public void setComponents(){
         imageIcon = new ImageIcon("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\logo.png");
 
-        label = new JLabel("PRIJAVA");
-        label.setIcon(imageIcon);
-        label.setHorizontalTextPosition(JLabel.CENTER); //Setting the text Center of Image
-        label.setVerticalTextPosition(JLabel.BOTTOM);
-        label.setIconTextGap(20);
+        labelLogin = new JLabel("PRIJAVA");
+        labelLogin.setIcon(imageIcon);
+        labelLogin.setHorizontalTextPosition(JLabel.CENTER); //Setting the text Center of Image
+        labelLogin.setVerticalTextPosition(JLabel.BOTTOM);
+        labelLogin.setIconTextGap(20);
 
 
-        label.setFont(new Font("Calibri",Font.PLAIN,22));
+        labelLogin.setFont(new Font("Calibri",Font.PLAIN,22));
 
 
-        this.add(label);
+        this.add(labelLogin);
 
-        textField = new TextField();
+        EmailTextField = new TextField();
 
-        textField.setText("E-mail");
-        textField.setPreferredSize(new Dimension(100,30));
-        textField.setForeground(Color.gray);
-        textField.addFocusListener(new FocusListener() {
+        EmailTextField.setText("E-mail");
+        EmailTextField.setPreferredSize(new Dimension(100,30));
+        EmailTextField.setForeground(Color.gray);
+        EmailTextField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textField.getText().equals("E-mail")){
-                    textField.setForeground(Color.BLACK);
-                    textField.setText("");
+                if (EmailTextField.getText().equals("E-mail")){
+                    EmailTextField.setForeground(Color.BLACK);
+                    EmailTextField.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (textField.getText().isEmpty()){
-                    textField.setText("E-mail");
-                    textField.setForeground(Color.gray);
+                if (EmailTextField.getText().isEmpty()){
+                    EmailTextField.setText("E-mail");
+                    EmailTextField.setForeground(Color.gray);
                 }
 
             }
         });
 
-        this.add(textField);
+        this.add(EmailTextField);
 
         passwordField = new JPasswordField();
         passwordField.setText("Lozinka");
@@ -111,19 +104,19 @@ public class myRegister extends JFrame implements ActionListener {
         this.add(passwordField);
 
 
-        button = new JButton();
-        button.setText("POTVRDI");
-        button.setBounds(100,50,120,30);
-        button.addActionListener(this);
-        button.setFocusable(false);
-        button.addActionListener(new ActionListener() {
+        confirmButton = new JButton();
+        confirmButton.setText("POTVRDI");
+        confirmButton.setBounds(100,50,120,30);
+        confirmButton.addActionListener(this);
+        confirmButton.setFocusable(false);
+        confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String password = "Denis";
                 String Email = "denisradocaj03@gmail.com";
 
                 String enteredPassword = new String(passwordField.getPassword());
-                String enteredEmail = textField.getText();
+                String enteredEmail = EmailTextField.getText();
 
                 if (enteredPassword.equals(password) && enteredEmail.equals(Email)){
 
@@ -137,7 +130,7 @@ public class myRegister extends JFrame implements ActionListener {
 
                     clanarinaFrame.setVisible(true);
 
-                    JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(button);
+                    JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(confirmButton);
                     loginFrame.dispose();
 
 
@@ -149,17 +142,14 @@ public class myRegister extends JFrame implements ActionListener {
 ;            }
         });
 
+        this.add(confirmButton);
 
-        this.add(button);
 
-       // lightBlue = new Color(0,0,182,155);
-
-        buttonTwo = new JButton();
-        buttonTwo.setText("Niste Registrirani?");
-        buttonTwo.setFocusable(false);
-        //buttonTwo.setForeground(lightBlue);
-        buttonTwo.setBounds(328,180,150,20);
-        buttonTwo.addActionListener(new ActionListener() {
+        registerButton = new JButton();
+        registerButton.setText("Registracija");
+        registerButton.setFocusable(false);
+        registerButton.setBounds(328,180,150,20);
+        registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Open the new frame
@@ -167,25 +157,25 @@ public class myRegister extends JFrame implements ActionListener {
                 myFrame.setVisible(true);
 
                 // Close the current frame
-                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(buttonTwo);
+                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(registerButton);
                 if (currentFrame != null) {
                     currentFrame.dispose();
                 }
             }
         });
 
-        this.add(buttonTwo);
+        this.add(registerButton);
 
         panel = new JPanel();
 
         panel.setPreferredSize(new Dimension(500,250));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.red, 7));
-        panel.add(label);
-        panel.add(textField);
+        panel.add(labelLogin);
+        panel.add(EmailTextField);
         panel.add(passwordField);
 
-        panel.add(button);
+        panel.add(confirmButton);
 
 
         this.add(panel, BorderLayout.CENTER);
@@ -195,7 +185,7 @@ public class myRegister extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == buttonTwo){
+        if (e.getSource() == registerButton){
             System.out.println();
 
         }

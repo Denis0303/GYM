@@ -1,6 +1,6 @@
 package com.javapackage;
 
-import javax.swing.table.DefaultTableModel;
+
 import java.sql.*;
 
 public class DatabaseHelper {
