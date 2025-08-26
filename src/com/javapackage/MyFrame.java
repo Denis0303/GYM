@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 
 
@@ -52,6 +54,9 @@ public class MyFrame extends JFrame implements ActionListener {
 
     Color lightBlue;
 
+
+
+
     MyFrame(){
         
         this.setTitle("Clanarina");
@@ -61,6 +66,7 @@ public class MyFrame extends JFrame implements ActionListener {
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(getJMenuBar());
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
 
         components();
 
@@ -121,7 +127,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
         this.add(buttonTwo);
 
-        lightBlue = new Color(0,0,182,155);
+        //lightBlue = new Color(0,0,182,155);
 
         buttonThree = new JButton();
         buttonThree.setText("Natrag..");
@@ -321,98 +327,118 @@ public class MyFrame extends JFrame implements ActionListener {
 
     private void createButton() {
         button = new JButton();
-        //button.addActionListener(this);
-
-        button.setBounds(360,500,100,50);
+        button.setBounds(360, 500, 100, 50);
         button.setText("POTVRDI");
         button.setFocusable(false);
+
         button.addActionListener(e -> {
 
+            String name = textField.getText().trim();
+            String email = textfieldTwo.getText().trim();
+            String phone = textFieldThree.getText().trim();
+            String password = new String(passwordField.getPassword());
+            String gender = getSelectedGender();
+            String membership = getSelectedMembership();
 
-            String membershipType = "";
-            Enumeration<AbstractButton> buttons = clanarina.getElements();
-            while (buttons.hasMoreElements()){
-                AbstractButton btn = buttons.nextElement();
-                if (btn.isSelected()){
-                    membershipType = btn.getText();
-                    break;
-
-                }
-            }
-
-            if (textField.getText().trim().isEmpty() ||
-                    textfieldTwo.getText().trim().isEmpty() ||
-                    textFieldThree.getText().trim().isEmpty() ||
+            if (name.isEmpty() || email.isEmpty() || phone.isEmpty() ||
                     (!spolMusko.isSelected() && !spolZensko.isSelected()) ||
-                    membershipType.isEmpty()) {
-
+                    membership.isEmpty()) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Please fill in all fields and make all selections!",
                         "Input Error",
                         JOptionPane.ERROR_MESSAGE
                 );
-                return; // stop here if invalid
+                return;
             }
 
-
-
-
-
-
-            String[] rowData = {
-                    textField.getText(),
-                    textfieldTwo.getText(),
-                    textFieldThree.getText(),
-                    spolMusko.isSelected() ? "M" : "Ž",
-                    membershipType
-            };
-
-
-            try {
-                File file = new File("C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv");
-                if (!file.exists()){
-                    file.createNewFile();
-
-                }
-
-
-                FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(), true);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-                for (int i = 0; i < rowData.length; i++){
-                    bufferedWriter.write(rowData[i]);
-                    if (i < rowData.length - 1){
-                        bufferedWriter.write(",");
-                    }
-
-
-                }
-
-                bufferedWriter.newLine();
-
-
-                bufferedWriter.close();
-                fileWriter.close();
-
-                // JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(button);
-                // parentFrame.dispose();
-
-
-
-                JOptionPane.showMessageDialog(null,"Data exported");
-
-                //this.dispose();
-
-
-            }catch (Exception ex){
-                ex.printStackTrace();
+            String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            String expirationDate;
+            if (membership.equals("Mjesečna")) {
+                expirationDate = LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            } else {
+                expirationDate = LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
             }
+
+            try (java.sql.Connection conn = DatabaseHelper.connect()) {
+
+                // Duplicate check
+                java.sql.PreparedStatement checkStmt = conn.prepareStatement(
+                        "SELECT COUNT(*) AS count FROM People WHERE \"Ime i prezime\" = ?");
+                checkStmt.setString(1, name);
+                java.sql.ResultSet rs = checkStmt.executeQuery();
+                if (rs.next() && rs.getInt("count") > 0) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "A member with this name already exists!",
+                            "Duplicate Entry",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    return; // stop here
+                }
+
+                // Insert into database
+                java.sql.PreparedStatement pstmt = conn.prepareStatement(
+                        "INSERT INTO People (\"Ime i prezime\", \"E-mail\", \"Broj telefona\", \"Spol\", \"Clanarina\", \"Datum\", \"Rok isteka\") VALUES (?,?,?,?,?,?,?)");
+
+                pstmt.setString(1, name);
+                pstmt.setString(2, email);
+                pstmt.setString(3, phone);
+                pstmt.setString(4, gender);
+                pstmt.setString(5, membership);
+                pstmt.setString(6, startDate);
+                pstmt.setString(7, expirationDate);
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Data exported successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                // Clear fields after success
+                textField.setText("Ime I Prezime");
+                textField.setForeground(Color.gray);
+
+                textfieldTwo.setText("E-mail");
+                textfieldTwo.setForeground(Color.gray);
+
+                textFieldThree.setText("Broj telefona");
+                textFieldThree.setForeground(Color.gray);
+
+                passwordField.setText("Lozinka");
+                passwordField.setForeground(Color.gray);
+                passwordField.setEchoChar((char) 0);
+
+                muskoZensko.clearSelection();
+                clanarina.clearSelection();
+
+            } catch (java.sql.SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error inserting to database: " + ex.getMessage());
+            }
+
         });
 
         this.add(button);
-
     }
+
+
+
+    private String getSelectedGender() {
+        if (spolMusko.isSelected()) return "Muško";
+        if (spolZensko.isSelected()) return "Žensko";
+        return ""; // return empty if nothing selected
+    }
+
+    private String getSelectedMembership() {
+        if (mjesecna.isSelected()) return "Mjesečna";
+        if (godisnja.isSelected()) return "Godišnja";
+        return ""; // return empty if nothing selected
+    }
+
+
 
    /* public void loadCsvDataFromFile(String filePath) {
         Clanarina clanarina1 = new Clanarina();
@@ -457,6 +483,7 @@ public class MyFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+
         if (e.getSource() == spolMusko){
 
             System.out.println(spolMusko.getText());
@@ -469,6 +496,8 @@ public class MyFrame extends JFrame implements ActionListener {
 
         if (e.getSource() == mjesecna){
             System.out.println("Izabrali ste mjesecnu clanarinu");
+
+
         }else if (e.getSource() == godisnja){
             System.out.println("Izabrali ste godisnju clanarinu");
         }

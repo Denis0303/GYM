@@ -132,7 +132,7 @@ public class myRegister extends JFrame implements ActionListener {
                     Clanarina clanarinaFrame = new Clanarina();
                     // Load CSV data here, replace with your actual file path
                     String csvPath = "C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv";
-                    clanarinaFrame.loadCsvDataFromFile(csvPath);
+                    //clanarinaFrame.loadCsvDataFromFile(csvPath);
 
 
                     clanarinaFrame.setVisible(true);
@@ -152,12 +152,12 @@ public class myRegister extends JFrame implements ActionListener {
 
         this.add(button);
 
-        lightBlue = new Color(0,0,182,155);
+       // lightBlue = new Color(0,0,182,155);
 
         buttonTwo = new JButton();
         buttonTwo.setText("Niste Registrirani?");
         buttonTwo.setFocusable(false);
-        buttonTwo.setForeground(lightBlue);
+        //buttonTwo.setForeground(lightBlue);
         buttonTwo.setBounds(328,180,150,20);
         buttonTwo.addActionListener(new ActionListener() {
             @Override
@@ -203,6 +203,9 @@ public class myRegister extends JFrame implements ActionListener {
 
 
     }
+
+
+
 
 
 
