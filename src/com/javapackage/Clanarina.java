@@ -39,6 +39,8 @@ public class Clanarina extends JFrame {
 
     JButton deleteButton;
 
+    JButton registerButton;
+
     private JLabel pageLabel;
 
     private java.util.List<String[]> allData = new ArrayList<>();
@@ -116,7 +118,19 @@ public class Clanarina extends JFrame {
         panel.setBackground(Color.white);
         panel.add(labelMembership);
 
+
         this.add(panel, BorderLayout.NORTH);
+
+        registerButton = new JButton("Registracija");
+        registerButton.setFocusable(false);
+        registerButton.addActionListener(e -> {
+            // Open the registration frame
+            MyFrame myFrame = new MyFrame(Clanarina.this);
+            myFrame.setVisible(true);
+
+        });
+
+
 
     }
 
@@ -173,8 +187,8 @@ public class Clanarina extends JFrame {
         backButton = new JButton("Natrag...");
         backButton.setFocusable(false);
         backButton.addActionListener(e -> {
-            MyFrame myFrame = new MyFrame();
-            myFrame.setVisible(true);
+            MyLogin myLogin = new MyLogin();
+            myLogin.setVisible(true);
             Clanarina.this.dispose();
         });
 
@@ -230,6 +244,16 @@ public class Clanarina extends JFrame {
             }
         });
 
+        registerButton = new JButton("Registracija");
+        registerButton.setFocusable(false);
+        registerButton.addActionListener(e -> {
+            MyFrame myFrame = new MyFrame(Clanarina.this);
+            myFrame.setVisible(true);
+
+
+        });
+
+        buttonPanel.add(registerButton);
         buttonPanel.add(backButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(prevButton);
@@ -337,6 +361,18 @@ public class Clanarina extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }}
+    }
+
+
+    public DefaultTableModel getTableModel() {
+        return model;
+    }
+
+    public void addRowToTable(String[] rowData) {
+        allData.add(rowData);
+        currentData.add(rowData);
+        showPage(currentPage); // refresh the current page
+    }
+}
 
 
