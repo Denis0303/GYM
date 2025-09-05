@@ -9,50 +9,28 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Random;
-import javax.swing.table.TableRowSorter;
 
 public class Clanarina extends JFrame {
 
-    private static final String CSV_FILE_PATH =
-            "C:\\Users\\denis\\IdeaProjects\\gym-membership\\src\\com\\javapackage\\Clanovi.csv";
-
     JLabel labelMembership;
     ImageIcon imageIcon;
-
     JPanel panel;
-
-    //Color lightBlue;
-
     JButton backButton;
-
     private JTable jTable;
    private DefaultTableModel model;
-
    private JPanel searchPanel;
-
     private JTextField searchField;
     private JButton searchButton;
     private JButton resetButton;
-
-    JScrollPane jScrollPane;
-
     JButton deleteButton;
-
     JButton registerButton;
-
     private JLabel pageLabel;
-
     private java.util.List<String[]> allData = new ArrayList<>();
     private java.util.List<String[]> currentData = new ArrayList<>();
-    private TableRowSorter<DefaultTableModel> sorter;
     private int pageSize = 80;
     private int currentPage = 1;
 
     Clanarina(){
-
-
-
         this.setTitle("Članarina");
         this.setSize(900, 700);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -74,7 +52,6 @@ public class Clanarina extends JFrame {
 
     public void loadDataFromDatabase() {
         allData.clear(); // Clear previous rows
-
 
         try (Connection conn = DatabaseHelper.connect();
              Statement stmt = conn.createStatement();
@@ -113,11 +90,7 @@ public class Clanarina extends JFrame {
         labelMembership.setHorizontalTextPosition(JLabel.CENTER);
         labelMembership.setVerticalTextPosition(JLabel.BOTTOM);
 
-        panel = new JPanel();
-        panel.setPreferredSize(new Dimension(170,170));
-        panel.setBackground(Color.white);
-        panel.add(labelMembership);
-
+        clanarinaCreatePanel();
 
         this.add(panel, BorderLayout.NORTH);
 
@@ -129,9 +102,6 @@ public class Clanarina extends JFrame {
             myFrame.setVisible(true);
 
         });
-
-
-
     }
 
     private void showPage(int page){
@@ -154,7 +124,6 @@ public class Clanarina extends JFrame {
 
     static class ExpirationDateCellRenderer extends DefaultTableCellRenderer{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -372,6 +341,17 @@ public class Clanarina extends JFrame {
         allData.add(rowData);
         currentData.add(rowData);
         showPage(currentPage); // refresh the current page
+    }
+
+
+    private void clanarinaCreatePanel(){
+        panel = new JPanel();
+        panel.setPreferredSize(new Dimension(170,170));
+        panel.setBackground(Color.white);
+        panel.add(labelMembership);
+
+
+        this.add(panel, BorderLayout.NORTH);
     }
 }
 
